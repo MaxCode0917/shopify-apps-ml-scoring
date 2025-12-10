@@ -669,6 +669,11 @@ def _build_results_dataframe(df: pd.DataFrame, llm_cache: Dict) -> pd.DataFrame:
 def merge_llm_scores(df: pd.DataFrame, scores_df: pd.DataFrame) -> pd.DataFrame:
     """Merge LLM scores with main DataFrame."""
 
+    # Make a copy and rename partner_probability to llm_partner_probability if needed
+    scores_df = scores_df.copy()
+    if 'partner_probability' in scores_df.columns and 'llm_partner_probability' not in scores_df.columns:
+        scores_df = scores_df.rename(columns={'partner_probability': 'llm_partner_probability'})
+
     # Columns to merge
     merge_cols = [
         'id', 'llm_partner_probability', 'llm_company_maturity',

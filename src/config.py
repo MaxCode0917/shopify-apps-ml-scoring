@@ -66,36 +66,119 @@ HIGH_VALUE_CATEGORIES = [
 
 # CustomGPT.ai Partner Program Context
 PARTNER_CONTEXT = """
-## About CustomGPT.ai
-CustomGPT.ai is the #1 no-code platform for creating custom AI agents. Key offerings:
-- RAG-As-A-Service API for production-ready applications
-- Support for 1,400+ file formats and website ingestion
-- 100+ integrations including Shopify
-- SOC2 Type 2 certified, GDPR compliant
-- Handles 93% of support and research questions automatically
+## Critical Context: We Want PARTNERS, Not Competitors
 
-## What We Seek in ISV Partners
-Partners who can integrate our RAG APIs to:
-1. Add AI-powered search and Q&A to their apps
-2. Automate customer support within their platform
-3. Build knowledge bases from merchant data
-4. Enhance product discovery and recommendations
+CustomGPT.ai provides RAG API infrastructure. We are looking for apps that would:
+- INTEGRATE our RAG API into their existing product
+- USE our backend to power AI features they don't have yet
+- ENHANCE their product with our technology
 
-## Ideal Partner Profile
+We are NOT looking for:
+- Apps that already have full AI chatbot/RAG solutions (they are COMPETITORS)
+- Apps building their own AI infrastructure
+- Apps that would compete with us rather than partner
+
+## About CustomGPT.ai (What Partners Would Integrate)
+
+CustomGPT.ai is an Enterprise RAG API platform. Partners integrate our API to add:
+
+### What We Provide (Backend Infrastructure)
+- **RAG-Powered Q&A Engine**: Partners send questions, we return accurate answers from their knowledge base
+- **Knowledge Base Indexing**: We ingest their data (docs, websites, products) and make it searchable
+- **Citation-Backed Responses**: >95% accuracy, no hallucinations, source attribution
+- **Streaming Responses**: Sub-second real-time answers
+- **Multi-Language**: 90+ languages supported
+- **Enterprise Security**: SOC-2 Type II certified
+
+### How Partners Would Use Us
+- Add "Ask AI" feature to their existing app
+- Power a customer support chatbot within their platform
+- Enable conversational product discovery
+- Build FAQ automation without building RAG infrastructure
+- Add AI-powered search to complement their existing features
+
+## Ideal Partner Profile (INTEGRATE our API)
+
+EXCELLENT PARTNERS (score 0.7-0.9):
+Apps that have a clear use case for RAG but DON'T have it yet:
+
+1. **Help Center/FAQ Apps WITHOUT AI**: Build FAQ pages manually - could add AI Q&A powered by us
+2. **Product Review Apps**: Have review data but no AI analysis - could add review Q&A chatbot
+3. **Search & Filter Apps WITHOUT AI**: Keyword-based search - could add semantic/conversational search
+4. **Customer Support/Helpdesk Apps**: Ticketing systems without AI responses - could automate with our RAG
+5. **Knowledge Base Builders**: Static docs - could add intelligent Q&A layer
+6. **Size Guide/Fitting Apps**: Static charts - could add conversational size recommendations
+
+GOOD PARTNERS (score 0.5-0.7):
+Apps that could add AI features to enhance their core offering:
+
+1. **Loyalty/Rewards Apps**: Could add chatbot for program questions
+2. **Subscription Apps**: Could add AI support for subscription management queries
+3. **Translation Apps**: Could enhance with AI-powered multilingual Q&A
+4. **Forms/Survey Apps**: Could add intelligent form assistance
+
+POOR PARTNERS (score 0.1-0.3):
+
+1. **AI Chatbot Apps (COMPETITORS)**: Already have AI chatbots - they compete with us, not partner
+   - Examples: Apps with "AI Chatbot", "ChatGPT-powered", "AI Assistant" in name/description
+   - They build their own AI, won't use our API
+
+2. **SEO/Google Optimization Apps**: Wrong domain - optimizing for Google rankings, not site Q&A
+
+3. **Invoice/Document Generation**: Template-based output, no knowledge retrieval needed
+
+4. **Pixel Tracking/Analytics**: Backend data collection, no customer-facing AI opportunity
+
+5. **Data Feed/Export Apps**: Structured data transformation, not conversational
+
+6. **Countdown Timer/Popup/Banner Apps**: Simple display widgets, no AI opportunity
+
+7. **Shipping Label/Logistics Apps**: Operational tools, not knowledge-based
+
+## Key Distinction: Partner vs Competitor
+
+ASK: "Would this app BUY our API or BUILD their own?"
+
+PARTNER signals:
+- No current AI features (gap we can fill)
+- Core product is NOT AI (AI would be add-on feature)
 - Technical capability to integrate APIs
-- Customer support, search, or content-related app functionality
-- Established apps with real merchant traction
-- Mid-market to enterprise merchant focus (aligns with our $99-499+/mo pricing)
-- Apps that handle substantial content/data (benefit most from RAG)
+- Customer base that would value AI features
+- Pain point that RAG solves (support tickets, repetitive questions)
+
+COMPETITOR signals:
+- Already has AI chatbot or AI-powered features
+- "AI" or "ChatGPT" is core to their value proposition
+- Building their own ML/AI infrastructure
+- Would view us as threat, not enabler
 """
 
 # LLM Prompt Template
-LLM_PROMPT_TEMPLATE = """You are an expert at evaluating software companies for B2B partnership potential.
-
-## Context
-We run an ISV (Independent Software Vendor) Partner Program for CustomGPT.ai.
+LLM_PROMPT_TEMPLATE = """You are evaluating Shopify apps for PARTNERSHIP potential with CustomGPT.ai.
 
 {partner_context}
+
+## Evaluation Criteria
+
+1. **Partnership Fit (50%)**:
+   - Do they have a CLEAR USE CASE for RAG that they don't have yet?
+   - Would AI be an ADD-ON feature (not their core product)?
+   - Is there a gap we can fill?
+
+2. **Integration Readiness (25%)**:
+   - Do they have API integrations already? (shows capability)
+   - Multiple apps? (development resources)
+   - Enterprise pricing tier? (budget for API costs)
+
+3. **Business Viability (15%)**:
+   - Strong ratings/reviews (healthy business)
+   - Paid plans (customers willing to pay)
+   - Growth potential
+
+4. **Competitive Risk (10% - NEGATIVE factor)**:
+   - SUBTRACT points if they have existing AI features
+   - SUBTRACT points if AI is their core differentiator
+   - SUBTRACT points if they're likely building in-house AI
 
 ## App to Evaluate
 
@@ -115,21 +198,27 @@ We run an ISV (Independent Software Vendor) Partner Program for CustomGPT.ai.
 **Review Sentiment Summary**:
 {sentiment_summary}
 
-## Task
+## Output Requirements
 
-Analyze this Shopify app and its developer as a potential ISV partner for CustomGPT.ai's RAG APIs.
+partner_probability: 0.0-1.0
+- 0.7-0.9: Excellent partner - clear RAG use case, no competing AI features
+- 0.5-0.7: Good partner - could benefit from RAG, moderate fit
+- 0.3-0.5: Weak partner - limited use case or some competitive overlap
+- 0.1-0.3: Poor partner - competitor, wrong domain, or no clear use case
 
-Consider:
-1. Could this app benefit from RAG-powered AI features (search, Q&A, knowledge base)?
-2. Does the developer appear technically capable of API integration?
-3. Is this a serious business with resources for partnership activities?
-4. Does the app serve merchants who would value AI-powered features?
+IMPORTANT:
+- Apps with "AI Chatbot" as core feature = LOW score (competitor)
+- Apps with "Search" for SEO = LOW score (wrong domain)
+- Apps with NO AI but clear Q&A/support need = HIGH score (ideal partner)
+- High developer sophistication + no AI features = EXCELLENT partner opportunity
 
 Respond ONLY with valid JSON:
 {{
   "partner_probability": <float 0.0-1.0>,
-  "reasoning": "<2-3 sentences explaining your assessment>",
-  "rag_use_cases": ["<use_case_1>", "<use_case_2>"],
+  "reasoning": "<2-3 sentences: Is this a PARTNER (would buy our API) or COMPETITOR (has AI already)? What RAG use case exists?>",
+  "is_competitor": <boolean - true if they already have AI chatbot/search features>,
+  "existing_ai_features": ["<list any AI features they already have, or empty if none>"],
+  "rag_use_cases": ["<1-3 specific ways they could integrate CustomGPT.ai API, or empty if competitor>"],
   "inferred_company_maturity": "<hobbyist|small_team|established_business|agency|enterprise>",
   "inferred_technical_sophistication": <int 1-5>,
   "inferred_business_model": "<free_only|freemium|paid|enterprise|unclear>",
@@ -138,3 +227,7 @@ Respond ONLY with valid JSON:
   "partnership_risk_flags": ["<flag1>", "<flag2>"],
   "confidence": "<low|medium|high>"
 }}"""
+
+
+
+
